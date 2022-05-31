@@ -1,24 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
-import styled from "styled-components";
 import ToDoContent from "./ToDoContent.js";
 import ToDoForm from "./ToDoForm.js";
 
 export default function Main() {
-  /*const [toDos, setToDos] = useState([
-    {
-      id: nanoid(),
-      toDoText: "Homework: ToDo App",
-      completed: false,
-      archived: false,
-    },
-    {
-      id: nanoid(),
-      toDoText: "learn more React",
-      completed: false,
-      archived: false,
-    },
-  ]);*/
   const [toDos, setToDos] = useState(() => {
     const toDoList = localStorage.getItem("toDo-list");
     if (toDoList) {
