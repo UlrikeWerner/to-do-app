@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
-import ToDoContent from "./ToDoContent.js";
-import ToDoForm from "./ToDoForm.js";
+import ToDoContent from "../ToDos/ToDoContent.js";
+import ToDoForm from "../Form/ToDoForm.js";
 
 export default function Main() {
   const [toDos, setToDos] = useState(() => {
