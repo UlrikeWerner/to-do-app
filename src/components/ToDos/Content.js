@@ -14,8 +14,8 @@ const ToDoContainer = styled.section`
   }
 `;
 
-const Buttons = styled.div`
+const ButtonContainer = styled.div`
   align-self: center;
 `;
 
-export { ToDoContainer, Buttons };
+export { ToDoContainer, ButtonContainer };

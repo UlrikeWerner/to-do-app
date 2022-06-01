@@ -1,9 +1,11 @@
 import React from "react";
-import { ToDoContainer, Buttons } from "./Content.js";
+import styled from "styled-components";
+import { ToDoContainer, ButtonContainer } from "./Content.js";
 
 export default function ToDoContent({
   text,
   completed,
+  archived,
   setCompleted,
   setArchived,
   deleteItem,
@@ -11,16 +13,18 @@ export default function ToDoContent({
   return (
     <ToDoContainer completed={completed}>
       <p>{text}</p>
-      <Buttons>
-        <button
+      <ButtonContainer>
+        <ButtonStyle
+          archived={archived}
           type="button"
           onClick={() => {
             setCompleted();
           }}
         >
           {completed ? "uncomplete" : "complete"}
-        </button>
-        <button
+        </ButtonStyle>
+        <ButtonStyle
+          archived={archived}
           type="button"
           onClick={() => {
             if (completed) {
@@ -31,8 +35,12 @@ export default function ToDoContent({
           }}
         >
           {completed ? "archive" : "delete"}
-        </button>
-      </Buttons>
+        </ButtonStyle>
+      </ButtonContainer>
     </ToDoContainer>
   );
 }
+
+const ButtonStyle = styled.button`
+  display: ${({ archived }) => (archived ? "none" : "")};
+`;

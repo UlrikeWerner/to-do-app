@@ -83,7 +83,7 @@ export default function Main() {
           path="/"
           element={
             <>
-              <Header backgroundColor="darkblue" color="white" />
+              <Header text="ToDo App" />
               <ToDoForm addItem={addItem} />
               {toDos
                 .filter((item) => item.archived !== true)
@@ -93,6 +93,7 @@ export default function Main() {
                       key={item.id}
                       text={item.toDoText}
                       completed={item.completed}
+                      archived={item.archived}
                       setCompleted={() => setCompleted(item.id)}
                       setArchived={() => setArchived(item.id)}
                       deleteItem={() => deleteItem(item.id)}
@@ -107,8 +108,7 @@ export default function Main() {
           path="/archive"
           element={
             <>
-              <Header backgroundColor="darkblue" color="white" />
-              <ToDoForm addItem={addItem} />
+              <Header text="ToDo List Archive" />
               {toDos
                 .filter((item) => item.archived === true)
                 .map((item) => {
@@ -117,6 +117,7 @@ export default function Main() {
                       key={item.id}
                       text={item.toDoText}
                       completed={item.completed}
+                      archived={item.archived}
                       setCompleted={() => setCompleted(item.id)}
                       setArchived={() => setArchived(item.id)}
                       deleteItem={() => deleteItem(item.id)}
@@ -131,24 +132,31 @@ export default function Main() {
           path="/random"
           element={
             <>
-              <Header backgroundColor="darkblue" color="white" />
-              <ToDoForm addItem={addItem} />
-              {
-                <ToDoContent
-                  key={toDos[randomDo].id}
-                  text={toDos[randomDo].toDoText}
-                  completed={toDos[randomDo].completed}
-                  setCompleted={() => setCompleted(toDos[randomDo].id)}
-                  setArchived={() => setArchived(toDos[randomDo].id)}
-                  deleteItem={() => deleteItem(toDos[randomDo].id)}
-                />
-              }
+              <Header text="ToDo List Random" />
+              <button
+                type="button"
+                onClick={() => {
+                  setRandom();
+                }}
+              >
+                Shuffle
+              </button>
+              <p>Your random ToDo:</p>
+              <ToDoContent
+                key={toDos[randomDo].id}
+                text={toDos[randomDo].toDoText}
+                completed={toDos[randomDo].completed}
+                archived={toDos[randomDo].archived}
+                setCompleted={() => setCompleted(toDos[randomDo].id)}
+                setArchived={() => setArchived(toDos[randomDo].id)}
+                deleteItem={() => deleteItem(toDos[randomDo].id)}
+              />
             </>
           }
         />
         <Route />
       </Routes>
-      <Footer setRandom={setRandom} />
+      <Footer />
     </main>
   );
 }

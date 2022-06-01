@@ -6,14 +6,7 @@ export default function Footer({ setRandom, toDos }) {
     <FooterUl>
       <FooterLi to="/">Home</FooterLi>
       <FooterLi to="/archive">Archive</FooterLi>
-      <FooterLi
-        onClick={() => {
-          setRandom();
-        }}
-        to="/random"
-      >
-        Random
-      </FooterLi>
+      <FooterLi to="/random">Random</FooterLi>
     </FooterUl>
   );
 }
