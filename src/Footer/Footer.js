@@ -12,27 +12,24 @@ export default function Footer({ setRandom, toDos }) {
 }
 
 const FooterUl = styled.section`
-  height: 50px;
+  height: 4rem;
   position: fixed;
   bottom: 0;
   display: flex;
   justify-content: space-around;
-  background-color: lightyellow;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 5);
-  border-radius: 5px;
-  width: 80%;
+  background-color: darkblue;
+  /*box-shadow: 0 0 8px 0 rgba(0, 0, 0, 5);
+  border-radius: 5px;*/
+  width: 100%;
 `;
 
 const FooterLi = styled(NavLink)`
   padding: 1em 0;
   list-style: none;
   text-decoration: none;
-  color: black;
-  &:hover {
-    transform: scale(1.1);
-    color: lightblue;
-  }
-  &.active {
+  color: white;
+  &:hover,
+  &:active {
     transform: scale(1.1);
     color: lightblue;
   }
