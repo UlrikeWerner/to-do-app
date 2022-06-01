@@ -21,6 +21,8 @@ export default function Main() {
     localStorage.setItem("toDo-list", JSON.stringify(toDos));
   }, [toDos]);
 
+  const [randomDo, setRandomDo] = useState(0);
+
   function setCompleted(id) {
     const list = toDos.map((item) => {
       if (item.id === id) {
@@ -66,6 +68,12 @@ export default function Main() {
       },
     ];
     setToDos(newItem);
+  }
+
+  function setRandom() {
+    const minValue = Math.ceil(0);
+    const maxValue = Math.floor(toDos.length);
+    setRandomDo(Math.floor(Math.random() * (maxValue - minValue) + minValue));
   }
 
   return (
@@ -119,8 +127,28 @@ export default function Main() {
           }
         />
         <Route />
+        <Route
+          path="/random"
+          element={
+            <>
+              <Header backgroundColor="darkblue" color="white" />
+              <ToDoForm addItem={addItem} />
+              {
+                <ToDoContent
+                  key={toDos[randomDo].id}
+                  text={toDos[randomDo].toDoText}
+                  completed={toDos[randomDo].completed}
+                  setCompleted={() => setCompleted(toDos[randomDo].id)}
+                  setArchived={() => setArchived(toDos[randomDo].id)}
+                  deleteItem={() => deleteItem(toDos[randomDo].id)}
+                />
+              }
+            </>
+          }
+        />
+        <Route />
       </Routes>
-      <Footer />
+      <Footer setRandom={setRandom} />
     </main>
   );
 }

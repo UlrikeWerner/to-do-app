@@ -1,16 +1,24 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-export default function Footer() {
+export default function Footer({ setRandom, toDos }) {
   return (
     <FooterUl>
       <FooterLi to="/">Home</FooterLi>
       <FooterLi to="/archive">Archive</FooterLi>
+      <FooterLi
+        onClick={() => {
+          setRandom();
+        }}
+        to="/random"
+      >
+        Random
+      </FooterLi>
     </FooterUl>
   );
 }
 
-const FooterUl = styled.div`
+const FooterUl = styled.section`
   height: 50px;
   position: fixed;
   bottom: 0;
