@@ -5,8 +5,7 @@ export default {
   title: "Component/Header",
   component: Header,
   argTypes: {
-    backgroundColor: { control: "color" },
-    color: { control: "color" },
+    text,
   },
 };
 
