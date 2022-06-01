@@ -20,6 +20,11 @@ const FormInputText = styled.input`
 const FormInputSubmit = styled.input`
   grid-area: 2 / 3 / 3 / 4;
   justify-self: end;
+  &:hover,
+  &:active {
+    transform: scale(1.1);
+    background-color: lightblue;
+  }
 `;
 
 export { FormContainer, FormInputText, FormInputSubmit };

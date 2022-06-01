@@ -43,4 +43,9 @@ export default function ToDoContent({
 
 const ButtonStyle = styled.button`
   display: ${({ archived }) => (archived ? "none" : "")};
+  &:hover,
+  &:active {
+    transform: scale(1.1);
+    background-color: lightblue;
+  }
 `;

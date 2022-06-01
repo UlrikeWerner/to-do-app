@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import { Routes, Route } from "react-router-dom";
+import styled from "styled-components";
 
 import Header from "../../Header/Header.js";
 import ToDoContent from "../../ToDos/ToDoContent.js";
 import ToDoForm from "../../Form/ToDoForm.js";
 import Footer from "../../../Footer/Footer.js";
+import { ButtonStyle } from "../../ButtonStyle.js";
 
 export default function Main() {
   const [toDos, setToDos] = useState(() => {
@@ -133,15 +135,17 @@ export default function Main() {
           element={
             <>
               <Header text="ToDo List Random" />
-              <button
-                type="button"
-                onClick={() => {
-                  setRandom();
-                }}
-              >
-                Shuffle
-              </button>
-              <p>Your random ToDo:</p>
+              <ArchiveStyle>
+                <ButtonStyle
+                  type="button"
+                  onClick={() => {
+                    setRandom();
+                  }}
+                >
+                  Shuffle
+                </ButtonStyle>
+                <p>Your random ToDo:</p>
+              </ArchiveStyle>
               <ToDoContent
                 key={toDos[randomDo].id}
                 text={toDos[randomDo].toDoText}
@@ -160,3 +164,10 @@ export default function Main() {
     </main>
   );
 }
+
+const ArchiveStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.5rem;
+`;
