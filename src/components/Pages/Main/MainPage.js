@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
+import useStore from "../../Hooks/useStore";
 
 import Header from "../../Header/Header.js";
 import ToDoContent from "../../ToDos/ToDoContent.js";
 import ToDoForm from "../../Form/ToDoForm.js";
-import Footer from "../../../Footer/Footer.js";
+import Footer from "../../Footer/Footer.js";
 import { ButtonStyle } from "../../ButtonStyle.js";
 
 export default function Main() {
   const [toDos, setToDos] = useState(() => {
     const toDoList = localStorage.getItem("toDo-list");
+
     if (toDoList) {
       return JSON.parse(toDoList);
     } else {
@@ -59,19 +61,6 @@ export default function Main() {
     setToDos(newToDos);
   }
 
-  function addItem(newToDo) {
-    const newItem = [
-      ...toDos,
-      {
-        id: nanoid(),
-        toDoText: newToDo,
-        completed: false,
-        archived: false,
-      },
-    ];
-    setToDos(newItem);
-  }
-
   function setRandom() {
     const minValue = Math.ceil(0);
     const maxValue = Math.floor(toDos.length);
@@ -86,7 +75,7 @@ export default function Main() {
           element={
             <>
               <Header text="ToDo App" />
-              <ToDoForm addItem={addItem} />
+              <ToDoForm />
               {toDos
                 .filter((item) => item.archived !== true)
                 .map((item) => {
@@ -110,7 +99,7 @@ export default function Main() {
           path="/archive"
           element={
             <>
-              <Header text="ToDo List Archive" />
+              <Header text="ToDo Archive" />
               {toDos
                 .filter((item) => item.archived === true)
                 .map((item) => {
@@ -134,7 +123,7 @@ export default function Main() {
           path="/random"
           element={
             <>
-              <Header text="ToDo List Random" />
+              <Header text="ToDo Random" />
               <ArchiveStyle>
                 <ButtonStyle
                   type="button"
