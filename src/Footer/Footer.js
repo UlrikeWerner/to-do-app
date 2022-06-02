@@ -18,9 +18,7 @@ const FooterUl = styled.section`
   display: flex;
   justify-content: space-around;
   background-color: darkblue;
-  /*box-shadow: 0 0 8px 0 rgba(0, 0, 0, 5);
-  border-radius: 5px;*/
-  width: 100%;
+  width: 95%;
 `;
 
 const FooterLi = styled(NavLink)`
