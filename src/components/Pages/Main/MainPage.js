@@ -22,26 +22,6 @@ export default function Main() {
     setRandomDo(Math.floor(Math.random() * (maxValue - minValue) + minValue));
   }
 
-  function filterArchivedTest() {
-    let returnList;
-    const filterToDo = toDoList
-      .filter((item) => item.archived === true)
-      .map((item) => {
-        return item;
-      });
-
-    if (filterToDo.length > 0) {
-      console.log(filterToDo, filterToDo.length);
-      returnList = filterToDo.map((item) => {
-        return <ToDoContent key={item.id} item={item} />;
-      });
-    } else {
-      console.log("no archive");
-      returnList = <p>You have no archived task!</p>;
-    }
-    return returnList;
-  }
-
   return (
     <main>
       <Routes>
@@ -60,15 +40,7 @@ export default function Main() {
           }
         />
         <Route />
-        <Route
-          path="/archive"
-          element={
-            <>
-              <Header text="ToDo Archive" />
-              {filterArchivedTest()}
-            </>
-          }
-        />
+        <Route path="/archive" element={<ArchiveSite />} />
         <Route />
         <Route
           path="/random"
@@ -112,3 +84,35 @@ const ArchiveStyle = styled.div`
   align-items: center;
   padding-top: 0.5rem;
 `;
+
+function ArchiveSite() {
+  const toDoList = useStore((state) => state.toDos);
+
+  function filterArchivedTest() {
+    let returnList;
+    const filterToDo = toDoList
+      .filter((item) => item.archived === true)
+      .map((item) => {
+        return item;
+      });
+
+    if (filterToDo.length > 0) {
+      console.log(filterToDo, filterToDo.length);
+      returnList = filterToDo.map((item) => {
+        return <ToDoContent key={item.id} item={item} />;
+      });
+    } else {
+      console.log("no archive");
+      returnList = <p>You have no archived task!</p>;
+    }
+    return returnList;
+  }
+  return (
+    <>
+      <Header text="ToDo Archive" />
+      {filterArchivedTest()}
+    </>
+  );
+}
+
+function RandomSite() {}
