@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { useStore } from "../Hooks/useStore";
+import { useStore } from "../../Common/Hooks/useStore";
 
 export default function Footer() {
   const setHeaderText = useStore((state) => state.setHeader);
