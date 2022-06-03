@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { FormContainer, FormInputText, FormInputSubmit } from "./Form.js";
+import { FormContainer, FormInputText, FormInputSubmit } from "./FormStyle.js";
 import { useStore } from "../../Common/Hooks/useStore.js";
 
-export default function ToDoForm() {
+export default function ToDoForm({ id }) {
   const [newToDo, setNewToDo] = useState("");
-
   const addToDo = useStore((state) => state.addToDo);
 
   return (
     <FormContainer
       onSubmit={(event) => {
         event.preventDefault();
-        addToDo(newToDo);
+        addToDo(newToDo, id);
         setNewToDo("");
       }}
     >
@@ -25,7 +24,14 @@ export default function ToDoForm() {
           setNewToDo(event.target.value);
         }}
       />
-      <FormInputSubmit type="submit" value="add" />
+      {id ? (
+        <>
+          <FormInputSubmit type="submit" value="save" />
+          <FormInputSubmit type="button" value="cancel" />
+        </>
+      ) : (
+        <FormInputSubmit type="submit" value="add" />
+      )}
     </FormContainer>
   );
 }

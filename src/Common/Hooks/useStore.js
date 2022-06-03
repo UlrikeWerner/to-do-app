@@ -7,20 +7,29 @@ const useStore = create(
     (set) => {
       return {
         toDos: [],
-        addToDo: (text) =>
-          set((state) => {
-            return {
-              toDos: [
-                ...state.toDos,
-                {
-                  id: nanoid(),
-                  text,
-                  completed: false,
-                  archived: false,
-                },
-              ],
-            };
-          }),
+        addToDo: (text, id) =>
+          id
+            ? set((state) => {
+                return {
+                  toDos: state.toDos.map((item) =>
+                    item.id === id ? { ...item, text } : item
+                  ),
+                };
+              })
+            : set((state) => {
+                return {
+                  toDos: [
+                    ...state.toDos,
+                    {
+                      id: nanoid(),
+                      text,
+                      completed: false,
+                      archived: false,
+                      edit: false,
+                    },
+                  ],
+                };
+              }),
         setCompleted: (id) =>
           set((state) => {
             return {
@@ -34,6 +43,14 @@ const useStore = create(
             return {
               toDos: state.toDos.map((item) =>
                 item.id === id ? { ...item, archived: !item.archived } : item
+              ),
+            };
+          }),
+        setEdit: (id) =>
+          set((state) => {
+            return {
+              toDos: state.toDos.map((item) =>
+                item.id === id ? { ...item, edit: !item.edit } : item
               ),
             };
           }),

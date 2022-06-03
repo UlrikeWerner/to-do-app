@@ -6,6 +6,7 @@ import { useStore } from "../../Common/Hooks/useStore";
 export default function ToDoContent({ id }) {
   const setCompleted = useStore((state) => state.setCompleted);
   const setArchived = useStore((state) => state.setArchived);
+  const setEdit = useStore((state) => state.setEdit);
   const deleteItem = useStore((state) => state.deleteItem);
   const item = useStore((state) => state.toDos.find((item) => item.id === id));
 
@@ -13,28 +14,58 @@ export default function ToDoContent({ id }) {
     <ToDoContainer completed={item.completed}>
       <p>{item.text}</p>
       <ButtonContainer>
-        <ButtonStyle
-          archived={item.archived}
-          type="button"
-          onClick={() => {
-            setCompleted(item.id);
-          }}
-        >
-          {item.completed ? "uncomplete" : "complete"}
-        </ButtonStyle>
-        <ButtonStyle
-          archived={item.archived}
-          type="button"
-          onClick={() => {
-            if (item.completed) {
-              setArchived(item.id);
-            } else {
-              deleteItem(item.id);
-            }
-          }}
-        >
-          {item.completed ? "archive" : "delete"}
-        </ButtonStyle>
+        {item.completed ? (
+          <>
+            <ButtonStyle
+              archived={item.archived}
+              type="button"
+              onClick={() => {
+                setCompleted(item.id);
+              }}
+            >
+              uncomplete
+            </ButtonStyle>
+            <ButtonStyle
+              archived={item.archived}
+              type="button"
+              onClick={() => {
+                setArchived(item.id);
+              }}
+            >
+              archive
+            </ButtonStyle>
+          </>
+        ) : (
+          <>
+            <ButtonStyle
+              archived={item.archived}
+              type="button"
+              onClick={() => {
+                setCompleted(item.id);
+              }}
+            >
+              complete
+            </ButtonStyle>
+            <ButtonStyle
+              edit={item.edit}
+              type="button"
+              onClick={() => {
+                setEdit(item.id);
+              }}
+            >
+              edit
+            </ButtonStyle>
+            <ButtonStyle
+              archived={item.archived}
+              type="button"
+              onClick={() => {
+                deleteItem(item.id);
+              }}
+            >
+              delete
+            </ButtonStyle>
+          </>
+        )}
       </ButtonContainer>
     </ToDoContainer>
   );
