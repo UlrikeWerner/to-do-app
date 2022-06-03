@@ -14,28 +14,13 @@ export default function Main() {
 
   return (
     <main>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Header text="ToDo App" />
-              <ToDoForm />
-              {toDoList
-                .filter((item) => item.archived !== true)
-                .map((item) => {
-                  return <ToDoContent key={item.id} item={item} />;
-                })}
-            </>
-          }
-        />
-        <Route />
-        <Route path="/archive" element={<ArchiveSite />} />
-        <Route />
-        <Route path="/random" element={<RandomSite />} />
-        <Route />
-      </Routes>
-      <Footer />
+      <Header text="ToDo App" />
+      <ToDoForm />
+      {toDoList
+        .filter((item) => item.archived !== true)
+        .map((item) => {
+          return <ToDoContent key={item.id} item={item} />;
+        })}
     </main>
   );
 }
