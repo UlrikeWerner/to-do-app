@@ -12,7 +12,7 @@ const useStore = create(
             ? set((state) => {
                 return {
                   toDos: state.toDos.map((item) =>
-                    item.id === id ? { ...item, text } : item
+                    item.id === id ? { ...item, text, edit: false } : item
                   ),
                 };
               })

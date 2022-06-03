@@ -3,19 +3,24 @@ import { FormContainer, FormInputText, FormInputSubmit } from "./FormStyle.js";
 import { useStore } from "../../Common/Hooks/useStore.js";
 
 export default function ToDoForm({ id }) {
-  const [newToDo, setNewToDo] = useState("");
+  const item = useStore((state) => state.toDos.find((item) => item.id === id));
+  const [newToDo, setNewToDo] = useState(id ? item.text : "");
   const addToDo = useStore((state) => state.addToDo);
+  const setEdit = useStore((state) => state.setEdit);
+  const edit = id ? true : false;
 
   return (
     <FormContainer
+      editStyle={edit}
       onSubmit={(event) => {
         event.preventDefault();
         addToDo(newToDo, id);
         setNewToDo("");
       }}
     >
-      <label htmlFor="input-toDo">new ToDo:</label>
+      {edit ? "" : <label htmlFor="input-toDo">new ToDo:</label>}
       <FormInputText
+        editStyle={edit}
         required
         id="inpute-toDo"
         type="text"
@@ -24,13 +29,20 @@ export default function ToDoForm({ id }) {
           setNewToDo(event.target.value);
         }}
       />
-      {id ? (
+      {edit ? (
         <>
-          <FormInputSubmit type="submit" value="save" />
-          <FormInputSubmit type="button" value="cancel" />
+          <FormInputSubmit editStyle={edit} type="submit" value="save" />
+          <FormInputSubmit
+            editStyle={edit}
+            type="button"
+            value="cancel"
+            onClick={() => {
+              setEdit(id);
+            }}
+          />
         </>
       ) : (
-        <FormInputSubmit type="submit" value="add" />
+        <FormInputSubmit editStyle={edit} type="submit" value="add" />
       )}
     </FormContainer>
   );
