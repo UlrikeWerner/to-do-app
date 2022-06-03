@@ -9,18 +9,9 @@ import ToDoContent from "../../ToDos/ToDoContent.js";
 import ToDoForm from "../../Form/ToDoForm.js";
 import Footer from "../../Footer/Footer.js";
 import { ButtonStyle } from "../../ButtonStyle.js";
-//import { toBeEmpty } from "@testing-library/jest-dom/dist/matchers";
 
 export default function Main() {
   const toDoList = useStore((state) => state.toDos);
-
-  const [randomDo, setRandomDo] = useState(0);
-
-  function setRandom() {
-    const minValue = Math.ceil(0);
-    const maxValue = Math.floor(toDoList.length);
-    setRandomDo(Math.floor(Math.random() * (maxValue - minValue) + minValue));
-  }
 
   return (
     <main>
@@ -42,48 +33,13 @@ export default function Main() {
         <Route />
         <Route path="/archive" element={<ArchiveSite />} />
         <Route />
-        <Route
-          path="/random"
-          element={
-            <>
-              <Header text="ToDo Random" />
-              {toDoList.length > 0 ? (
-                <>
-                  <ArchiveStyle>
-                    <ButtonStyle
-                      type="button"
-                      onClick={() => {
-                        setRandom();
-                      }}
-                    >
-                      Shuffle
-                    </ButtonStyle>
-                    <p>Your random ToDo:</p>
-                  </ArchiveStyle>{" "}
-                  <ToDoContent
-                    key={toDoList[randomDo].id}
-                    item={toDoList[randomDo]}
-                  />
-                </>
-              ) : (
-                <p>You have no taskes!</p>
-              )}
-            </>
-          }
-        />
+        <Route path="/random" element={<RandomSite />} />
         <Route />
       </Routes>
       <Footer />
     </main>
   );
 }
-
-const ArchiveStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 0.5rem;
-`;
 
 function ArchiveSite() {
   const toDoList = useStore((state) => state.toDos);
@@ -97,7 +53,6 @@ function ArchiveSite() {
       });
 
     if (filterToDo.length > 0) {
-      console.log(filterToDo, filterToDo.length);
       returnList = filterToDo.map((item) => {
         return <ToDoContent key={item.id} item={item} />;
       });
@@ -115,4 +70,44 @@ function ArchiveSite() {
   );
 }
 
-function RandomSite() {}
+function RandomSite() {
+  const toDoList = useStore((state) => state.toDos);
+  const [randomDo, setRandomDo] = useState(0);
+
+  const ArchiveStyle = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.5rem;
+  `;
+
+  function setRandom() {
+    const minValue = Math.ceil(0);
+    const maxValue = Math.floor(toDoList.length);
+    setRandomDo(Math.floor(Math.random() * (maxValue - minValue) + minValue));
+  }
+
+  return (
+    <>
+      <Header text="ToDo Random" />
+      {toDoList.length > 0 ? (
+        <>
+          <ArchiveStyle>
+            <ButtonStyle
+              type="button"
+              onClick={() => {
+                setRandom();
+              }}
+            >
+              Shuffle
+            </ButtonStyle>
+            <p>Your random ToDo:</p>
+          </ArchiveStyle>{" "}
+          <ToDoContent key={toDoList[randomDo].id} item={toDoList[randomDo]} />
+        </>
+      ) : (
+        <p>You have no taskes!</p>
+      )}
+    </>
+  );
+}
