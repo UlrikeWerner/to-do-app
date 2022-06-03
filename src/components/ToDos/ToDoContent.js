@@ -1,40 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 import { ToDoContainer, ButtonContainer } from "./Content.js";
+import { useStore } from "../Hooks/useStore";
 
-export default function ToDoContent({
-  text,
-  completed,
-  archived,
-  setCompleted,
-  setArchived,
-  deleteItem,
-}) {
+export default function ToDoContent({ item }) {
+  const setCompleted = useStore((state) => state.setCompleted);
+  const setArchived = useStore((state) => state.setArchived);
+  const deleteItem = useStore((state) => state.deleteItem);
+
   return (
-    <ToDoContainer completed={completed}>
-      <p>{text}</p>
+    <ToDoContainer completed={item.completed}>
+      <p>{item.text}</p>
       <ButtonContainer>
         <ButtonStyle
-          archived={archived}
+          archived={item.archived}
           type="button"
           onClick={() => {
-            setCompleted();
+            setCompleted(item.id);
           }}
         >
-          {completed ? "uncomplete" : "complete"}
+          {item.completed ? "uncomplete" : "complete"}
         </ButtonStyle>
         <ButtonStyle
-          archived={archived}
+          archived={item.archived}
           type="button"
           onClick={() => {
-            if (completed) {
-              setArchived();
+            if (item.completed) {
+              setArchived(item.id);
             } else {
-              deleteItem();
+              deleteItem(item.id);
             }
           }}
         >
-          {completed ? "archive" : "delete"}
+          {item.completed ? "archive" : "delete"}
         </ButtonStyle>
       </ButtonContainer>
     </ToDoContainer>

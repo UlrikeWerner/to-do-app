@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useStore } from "../Hooks/useStore";
 
-export default function Footer({ setRandom, toDos }) {
+export default function Footer() {
+  const setHeaderText = useStore((state) => state.setHeader);
   return (
     <FooterUl>
       <FooterLi to="/">Home</FooterLi>
