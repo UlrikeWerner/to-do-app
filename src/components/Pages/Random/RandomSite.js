@@ -39,7 +39,7 @@ export default function RandomSite() {
             </ButtonStyle>
             <p>Your random ToDo:</p>
           </ArchiveStyle>{" "}
-          <ToDoContent key={toDoList[randomDo].id} item={toDoList[randomDo]} />
+          <ToDoContent key={toDoList[randomDo].id} id={toDoList[randomDo].id} />
         </>
       ) : (
         <p>You have no taskes!</p>

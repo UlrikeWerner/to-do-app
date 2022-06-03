@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { ToDoContainer, ButtonContainer } from "./Content.js";
 import { useStore } from "../../Common/Hooks/useStore";
 
-export default function ToDoContent({ item }) {
+export default function ToDoContent({ id }) {
   const setCompleted = useStore((state) => state.setCompleted);
   const setArchived = useStore((state) => state.setArchived);
   const deleteItem = useStore((state) => state.deleteItem);
+  const item = useStore((state) => state.toDos.find((item) => item.id === id));
 
   return (
     <ToDoContainer completed={item.completed}>
