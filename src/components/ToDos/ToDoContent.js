@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ToDoContainer, ButtonContainer } from "./Content.js";
-import { useStore } from "../Hooks/useStore";
+import { useStore } from "../../Common/Hooks/useStore";
 
 export default function ToDoContent({ item }) {
   const setCompleted = useStore((state) => state.setCompleted);

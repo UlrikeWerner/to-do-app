@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormContainer, FormInputText, FormInputSubmit } from "./Form.js";
-import { useStore } from "../Hooks/useStore.js";
+import { useStore } from "../../Common/Hooks/useStore.js";
 
 export default function ToDoForm() {
   const [newToDo, setNewToDo] = useState("");

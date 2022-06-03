@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-import { useStore } from "../../Hooks/useStore";
+import { useStore } from "../../../Common/Hooks/useStore";
 
 import Header from "../../Header/Header.js";
 import ToDoContent from "../../ToDos/ToDoContent.js";
