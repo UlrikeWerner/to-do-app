@@ -1,48 +1,45 @@
 import React, { useState } from "react";
 import { useStore } from "../../../Common/Hooks/useStore.js";
-import styled from "styled-components";
 
 import Header from "../../Header/Header.js";
 import ToDoContent from "../../ToDos/ToDoContent.js";
 import { ButtonStyle } from "../../ButtonStyle.js";
+import { RandomContainer } from "./RandomStyle.js";
 
 export default function RandomSite() {
   const toDoList = useStore((state) => state.toDos);
-  const [randomDo, setRandomDo] = useState(0);
-
-  const ArchiveStyle = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 0.5rem;
-  `;
+  const filterList = toDoList.filter((item) => !item.completed);
+  const [randomDo, setRandomDo] = useState(setRandom());
 
   function setRandom() {
     const minValue = Math.ceil(0);
-    const maxValue = Math.floor(toDoList.length);
-    setRandomDo(Math.floor(Math.random() * (maxValue - minValue) + minValue));
+    const maxValue = Math.floor(filterList.length);
+    return Math.floor(Math.random() * (maxValue - minValue) + minValue);
   }
 
   return (
     <>
       <Header text="ToDo Random" />
-      {toDoList.length > 0 ? (
+      {filterList.length > 0 ? (
         <>
-          <ArchiveStyle>
+          <RandomContainer>
             <ButtonStyle
               type="button"
               onClick={() => {
-                setRandom();
+                setRandomDo(setRandom());
               }}
             >
               Shuffle
             </ButtonStyle>
             <p>Your random ToDo:</p>
-          </ArchiveStyle>{" "}
-          <ToDoContent key={toDoList[randomDo].id} id={toDoList[randomDo].id} />
+          </RandomContainer>{" "}
+          <ToDoContent
+            key={filterList[randomDo].id}
+            id={filterList[randomDo].id}
+          />
         </>
       ) : (
-        <p>You have no taskes!</p>
+        <p>You have no tasks!</p>
       )}
     </>
   );
