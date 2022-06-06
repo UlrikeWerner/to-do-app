@@ -8,34 +8,38 @@ import { RandomContainer } from "./RandomStyle.js";
 
 export default function RandomSite() {
   const toDoList = useStore((state) => state.toDos);
-  const [randomDo, setRandomDo] = useState(0);
+  const filterList = toDoList.filter((item) => !item.completed);
+  const [randomDo, setRandomDo] = useState(setRandom());
 
   function setRandom() {
     const minValue = Math.ceil(0);
-    const maxValue = Math.floor(toDoList.length);
-    setRandomDo(Math.floor(Math.random() * (maxValue - minValue) + minValue));
+    const maxValue = Math.floor(filterList.length);
+    return Math.floor(Math.random() * (maxValue - minValue) + minValue);
   }
 
   return (
     <>
       <Header text="ToDo Random" />
-      {toDoList.length > 0 ? (
+      {filterList.length > 0 ? (
         <>
           <RandomContainer>
             <ButtonStyle
               type="button"
               onClick={() => {
-                setRandom();
+                setRandomDo(setRandom());
               }}
             >
               Shuffle
             </ButtonStyle>
             <p>Your random ToDo:</p>
           </RandomContainer>{" "}
-          <ToDoContent key={toDoList[randomDo].id} id={toDoList[randomDo].id} />
+          <ToDoContent
+            key={filterList[randomDo].id}
+            id={filterList[randomDo].id}
+          />
         </>
       ) : (
-        <p>You have no taskes!</p>
+        <p>You have no tasks!</p>
       )}
     </>
   );

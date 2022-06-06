@@ -3,11 +3,7 @@ import { useStore } from "../../../Common/Hooks/useStore.js";
 import { useState } from "react";
 import Header from "../../Header/Header.js";
 import ToDoContent from "../../ToDos/ToDoContent.js";
-import {
-  FormContainer,
-  FormInputText,
-  FormInputSubmit,
-} from "../../Form/FormStyle.js";
+import { FormContainer, FormInputText } from "../../Form/FormStyle.js";
 
 export default function ArchiveSite() {
   const [input, setInput] = useState("");
