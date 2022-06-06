@@ -5,9 +5,7 @@ import { useStore } from "../../Common/Hooks/useStore";
 import ToDoForm from "../Form/ToDoForm.js";
 
 export default function ToDoContent({ id }) {
-  const setCompleted = useStore((state) => state.setCompleted);
-  const setArchived = useStore((state) => state.setArchived);
-  const setEdit = useStore((state) => state.setEdit);
+  const toggle = useStore((state) => state.toggleValue);
   const deleteItem = useStore((state) => state.deleteItem);
   const item = useStore((state) => state.toDos.find((item) => item.id === id));
 
@@ -25,7 +23,7 @@ export default function ToDoContent({ id }) {
                   archived={item.archived}
                   type="button"
                   onClick={() => {
-                    setCompleted(item.id);
+                    toggle("completed", item.id);
                   }}
                 >
                   uncomplete
@@ -34,7 +32,7 @@ export default function ToDoContent({ id }) {
                   archived={item.archived}
                   type="button"
                   onClick={() => {
-                    setArchived(item.id);
+                    toggle("archived", item.id);
                   }}
                 >
                   archive
@@ -46,7 +44,7 @@ export default function ToDoContent({ id }) {
                   archived={item.archived}
                   type="button"
                   onClick={() => {
-                    setCompleted(item.id);
+                    toggle("completed", item.id);
                   }}
                 >
                   complete
@@ -55,7 +53,7 @@ export default function ToDoContent({ id }) {
                   edit={item.edit}
                   type="button"
                   onClick={() => {
-                    setEdit(item.id);
+                    toggle("edit", item.id);
                   }}
                 >
                   edit

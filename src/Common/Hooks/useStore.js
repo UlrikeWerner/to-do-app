@@ -30,27 +30,11 @@ const useStore = create(
                   ],
                 };
               }),
-        setCompleted: (id) =>
+        toggleValue: (key, id) =>
           set((state) => {
             return {
               toDos: state.toDos.map((item) =>
-                item.id === id ? { ...item, completed: !item.completed } : item
-              ),
-            };
-          }),
-        setArchived: (id) =>
-          set((state) => {
-            return {
-              toDos: state.toDos.map((item) =>
-                item.id === id ? { ...item, archived: !item.archived } : item
-              ),
-            };
-          }),
-        setEdit: (id) =>
-          set((state) => {
-            return {
-              toDos: state.toDos.map((item) =>
-                item.id === id ? { ...item, edit: !item.edit } : item
+                item.id === id ? { ...item, [key]: !item[key] } : item
               ),
             };
           }),
